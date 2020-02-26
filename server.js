@@ -1,16 +1,28 @@
 //Install express server
+// const express = require('express');
+// const path = require('path');
+ 
+// const app = express();
+ 
+// // Serve only the static files form the dist directory
+// // Replace the '/dist/<to_your_project_name>'
+// app.use(express.static(__dirname + '/dist/productsapp'));
+ 
+// app.get('*', function(req,res) {
+//   // Replace the '/dist/<to_your_project_name>/index.html'
+//   res.sendFile(path.join(__dirname + '/dist/productsapp/index.html'));
+// });
+// // Start the app by listening on the default Heroku port
+// app.listen(process.env.PORT || 8080);
 const express = require('express');
 const path = require('path');
- 
+const nomeApp = process.env.npm_package_name;
 const app = express();
  
-// Serve only the static files form the dist directory
-// Replace the '/dist/<to_your_project_name>'
-app.use(express.static(__dirname + '/dist/productsapp'));
+app.use(express.static(`${__dirname}/dist/${nomeApp}`));
  
-app.get('*', function(req,res) {
-  // Replace the '/dist/<to_your_project_name>/index.html'
-  res.sendFile(path.join(__dirname + '/dist/productsapp/index.html'));
+app.get('/*', (req, res) => {
+res.sendFile(path.join(`${__dirname}/dist/${nomeApp}/index.html`));
 });
-// Start the app by listening on the default Heroku port
+ 
 app.listen(process.env.PORT || 8080);
